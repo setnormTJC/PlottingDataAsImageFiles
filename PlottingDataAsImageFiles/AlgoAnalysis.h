@@ -17,8 +17,12 @@
 
 #include<iomanip>
 
+#include<random> 
+
 using std::vector, std::map, std::cout, std::string, std::accumulate, std::to_string;
 using std::ostringstream, std::array, std::fixed, std::setprecision, std::pair; 
+using std::mt19937, std::uniform_int_distribution; 
+
 
 class CurveFit
 {
@@ -50,6 +54,15 @@ public:
 class AlgoTimer
 {
 
+
+	vector<int> elementCounts = { 10, 100, 1'000, 10'000, 100'000, 200'000, 500'000, 1'000'000 };
+
+	vector<int> arrayOfData;
+
+	mt19937 rng{(unsigned int)time(nullptr)};
+	
+	void fillArrayWithData(const int N); 
+
 public: 
 	AlgoTimer(); 
 
@@ -57,7 +70,7 @@ public:
 	map<int, int> elementCountsToExecutionTimes; 
 
 	/*Just a demo for now*/
-	void mapElementCountsToExecutionTimes(); 
+	void mapLinearSearchTimes(); 
 
 	friend class CurveFit;
 };

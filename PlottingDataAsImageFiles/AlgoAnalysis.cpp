@@ -1,27 +1,49 @@
 #include "AlgoAnalysis.h"
 
 
+void AlgoTimer::fillArrayWithData(const int N)
+{
+	//clear the array so that it's empty on next iteration 
+	arrayOfData.clear(); 
+
+	/*Note the limit (INT_MAX)*/
+	uniform_int_distribution<int> distribution{ 0, N };
+
+	for (int i = 0; i < N; ++i)
+	{
+		arrayOfData.push_back(distribution(rng));
+	}
+}
+
 AlgoTimer::AlgoTimer() = default; 
 
-void AlgoTimer::mapElementCountsToExecutionTimes()
+void AlgoTimer::mapLinearSearchTimes()
 {
-	vector<int> elementCounts = { 10, 100, 1'000, 10'000, 100'000, 200'000, 500'000, 1'000'000};
 
 	/*measure time required to loop up to element count*/
 
 	for (const auto& elementCount : elementCounts)
 	{
+		fillArrayWithData(elementCount); 
+
+		uniform_int_distribution<int> distribution{ 0, elementCount };
+		int randomNumberToSearchFor = distribution(rng); 
+
 		auto start = std::chrono::high_resolution_clock::now(); 
-		for (int i = 0; i < elementCount; ++i)
+		for (int i = 0; i < arrayOfData.size(); ++i)
 		{
-			//nothing 
-			//double root = sqrt(i); //leads to "interesting" plot
+			if (arrayOfData[i] == randomNumberToSearchFor)
+			{
+				break; //not bothering with returning index (or false) here 
+			}
 		}
 		auto end = std::chrono::high_resolution_clock::now(); 
 
 		auto executionTime = (end - start).count(); 
 
 		elementCountsToExecutionTimes.insert({ elementCount, executionTime });
+
+
 	}
 	cout.imbue(std::locale(""));
 

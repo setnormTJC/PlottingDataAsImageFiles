@@ -9,7 +9,7 @@ void demoLinearForLoopPlottingAndFitting()
 {
     AlgoTimer algoTimer{};
 
-    algoTimer.mapElementCountsToExecutionTimes();
+    algoTimer.mapLinearSearchTimes();
 
     CurveFit curveFit{};
 
@@ -88,7 +88,7 @@ int main()
         {6, 18}
     };
     
-    testLinearPlottingAndFitting(simpleXYData); 
+    //testLinearPlottingAndFitting(simpleXYData); 
 
     return 0;
 }
